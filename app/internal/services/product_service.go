@@ -1,8 +1,8 @@
 package services
 
 import (
-	"learning-golang/internal/models"
-	"learning-golang/internal/repository"
+	"learning-golang/app/internal/models"
+	"learning-golang/app/internal/repository"
 )
 
 type ProductService interface {

@@ -2,10 +2,11 @@ package app
 
 import (
 	"context"
-	"learning-golang/config"
-	v1 "learning-golang/internal/routes/v1"
-	v2 "learning-golang/internal/routes/v2"
-	"learning-golang/pkg/utils"
+	"learning-golang/app/config"
+	v1 "learning-golang/app/internal/routes/v1"
+	v2 "learning-golang/app/internal/routes/v2"
+	"learning-golang/app/middlewares"
+	"learning-golang/app/pkg/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -27,8 +28,13 @@ func StartGin() {
 	router := gin.Default()
 
 	router.Use(gin.Logger())
-	// router.GET("swagger/*any", middlewares.NewSwagger())
-
+	router.GET("swagger/*any", middlewares.NewSwagger())
+	// CORS Middleware
+	if cfg.Env == "development" {
+		router.Use(middlewares.NewCors([]string{"*"})) // Allow all origins in development
+	} else {
+		router.Use(middlewares.NewCors(cfg.AllowedOrigins)) // Use specified origins in production
+	}
 	// Setup application routes
 	v1.InitializeRoutes(router.Group("/api/v1"), client)
 	v2.InitializeRoutes(router.Group("/api/v2"), client)

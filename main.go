@@ -5,7 +5,7 @@ import (
 )
 
 // @title Swagger Example API
-// @version 1.0
+// @version 2.0
 // @description This is a sample swagger
 // @termsOfService http://swagger.io/terms/
 
@@ -16,12 +16,14 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8585
+// @host localhost:8080
 // @BasePath /api/v1
 
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
+// @securityDefinitions.apiKey BearerAuth
+// @type Bearer Token
 // @name Authorization
+// @in header
+// @description Bearer token for accessing the API
 func main() {
 	app.StartGin()
 }

@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"learning-golang/internal/models"
-	"learning-golang/internal/services"
+	"learning-golang/app/internal/models"
+	"learning-golang/app/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -36,6 +36,15 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"id": result.InsertedID})
 }
 
+// GetAllUser godoc
+// @Tags User
+// @Summary Get all user
+// @Description Get all user
+// @Accept  json
+// @Produce  json
+// @Security BearerAuth
+// @Success 200 {array} models.User
+// @Router /user/all [get]
 func (h *UserHandler) GetUsers(c *gin.Context) {
 	users, err := h.Service.GetUsers()
 	if err != nil {

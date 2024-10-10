@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"learning-golang/config"
-	"learning-golang/internal/handlers"
-	"learning-golang/internal/repository"
-	"learning-golang/internal/services"
+	"learning-golang/app/config"
+	"learning-golang/app/internal/handlers"
+	"learning-golang/app/internal/repository"
+	"learning-golang/app/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"

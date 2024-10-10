@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"learning-golang/internal/models"
-	"learning-golang/internal/services"
+	"learning-golang/app/internal/models"
+	"learning-golang/app/internal/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

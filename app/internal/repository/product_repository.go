@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"learning-golang/internal/models"
+	"learning-golang/app/internal/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
