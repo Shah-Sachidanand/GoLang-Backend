@@ -37,13 +37,17 @@ GoLang-Backend/
    ```
 
 3. Set up environment variables:
-   Create a `.env` file in the root directory and add necessary configurations:
+   Copy `.env.example` to create a new `.env` file in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+   Then modify the values in `.env` according to your setup:
    ```env
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=your_username
-   DB_PASSWORD=your_password
-   DB_NAME=your_database
+   PORT=8080
+   MONGO_URI=mongodb://localhost:27017
+   DB_NAME=GolangDB
+   ALLOWED_ORIGINS=http://localhost:3000
+   ENV=development
    ```
 
 4. Run the application:
