@@ -52,7 +52,7 @@ GoLang-Backend/
 
 4. Run the application:
    ```bash
-   go run cmd/main.go
+   go run main.go
    ```
 
 ## API Documentation
