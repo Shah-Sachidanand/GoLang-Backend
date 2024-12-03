@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"learning-golang/app/config"
 	"learning-golang/app/internal/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -19,8 +20,8 @@ type productRepository struct {
 	collection *mongo.Collection
 }
 
-func NewProductRepository(client *mongo.Client, dbName string) ProductRepository {
-	collection := client.Database(dbName).Collection("products")
+func NewProductRepository(client *config.Resource) ProductRepository {
+	collection := client.DB.Collection("products")
 	return &productRepository{collection: collection}
 }
 

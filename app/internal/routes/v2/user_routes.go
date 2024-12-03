@@ -7,13 +7,10 @@ import (
 	"learning-golang/app/internal/services"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func RegisterUserRoutes(router *gin.RouterGroup, client *mongo.Client) {
-	// Initialize repository, service, config, and handler
-	cfg := config.LoadConfig()
-	userRepo := repository.NewUserRepository(client, cfg.DBName)
+func RegisterUserRoutes(router *gin.RouterGroup, client *config.Resource) {
+	userRepo := repository.NewUserRepository(client)
 	userService := services.NewUserService(userRepo)
 	userHandler := handlers.NewUserHandler(userService)
 

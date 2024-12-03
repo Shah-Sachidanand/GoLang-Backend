@@ -7,6 +7,7 @@ import (
 	v2 "learning-golang/app/internal/routes/v2"
 	"learning-golang/app/middlewares"
 	"learning-golang/app/pkg/utils"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,9 +18,12 @@ func StartGin() {
 	cfg := config.LoadConfig()
 
 	// Connect to MongoDB
-	client := config.ConnectMongo(cfg.MongoURI)
+	resource, err := config.ConnectMongo(cfg.MongoURI, cfg.DBName)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
+		if err := resource.DB.Client().Disconnect(context.TODO()); err != nil {
 			panic(err)
 		}
 	}()
@@ -36,15 +40,24 @@ func StartGin() {
 		router.Use(middlewares.NewCors(cfg.AllowedOrigins)) // Use specified origins in production
 	}
 	// Setup application routes
-	v1.InitializeRoutes(router.Group("/api/v1"), client)
-	v2.InitializeRoutes(router.Group("/api/v2"), client)
+	v1.InitializeRoutes(router.Group("/api/v1"), resource)
+	v2.InitializeRoutes(router.Group("/api/v2"), resource)
 
 	// Load HTML templates from the views folder
 	router.LoadHTMLGlob("app/views/*")
 
 	// Route for home page
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "home.html", nil)
+		userAgent := c.Request.UserAgent()
+
+		if utils.IsBrowser(userAgent) {
+			c.HTML(http.StatusOK, "Home.html", nil)
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"server":  "Backend Home",
+				"message": "The backend is connected and running!.",
+			})
+		}
 	})
 
 	// Custom 404 handler to return HTML for browsers and JSON for others
@@ -53,7 +66,6 @@ func StartGin() {
 		// Extract the method and path from the request
 		method := c.Request.Method
 		path := c.Request.URL.Path
-
 		// Check if the User-Agent indicates a browser
 		if utils.IsBrowser(userAgent) {
 			c.HTML(http.StatusNotFound, "404.html", gin.H{

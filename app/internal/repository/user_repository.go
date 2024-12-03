@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"learning-golang/app/config"
 	"learning-golang/app/internal/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -24,8 +25,8 @@ type userRepository struct {
 	collection *mongo.Collection
 }
 
-func NewUserRepository(client *mongo.Client, dbName string) UserRepository {
-	collection := client.Database(dbName).Collection("users")
+func NewUserRepository(client *config.Resource) UserRepository {
+	collection := client.DB.Collection("users")
 	return &userRepository{
 		collection: collection,
 	}

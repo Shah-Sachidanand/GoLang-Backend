@@ -1,11 +1,12 @@
 package v2
 
 import (
+	"learning-golang/app/config"
+
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func InitializeRoutes(router *gin.RouterGroup, client *mongo.Client) {
+func InitializeRoutes(router *gin.RouterGroup, client *config.Resource) {
 	// User Routes Group
 	userGroup := router.Group("/users")
 	RegisterUserRoutes(userGroup, client)
