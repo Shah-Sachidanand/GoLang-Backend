@@ -57,4 +57,20 @@ GoLang-Backend/
 
 ## API Documentation
 
-The API endpoints will be documented here once they are implemented.
+### Swagger Documentation
+
+The API is documented using Swagger/OpenAPI. Once the server is running, you can access the Swagger UI at:
+
+```
+http://localhost:8080/swagger/index.html
+```
+
+To generate/update Swagger documentation, run:
+```bash
+swag init -g main.go
+```
+
+Make sure you have swaggo installed:
+```bash
+go install github.com/swaggo/swag/cmd/swag@latest
+```
