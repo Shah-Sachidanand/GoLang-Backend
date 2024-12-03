@@ -51,7 +51,7 @@ func StartGin() {
 		userAgent := c.Request.UserAgent()
 
 		if utils.IsBrowser(userAgent) {
-			c.HTML(http.StatusOK, "Home.html", nil)
+			c.HTML(http.StatusOK, "home.html", nil)
 		} else {
 			c.JSON(http.StatusOK, gin.H{
 				"server":  "Backend Home",
