@@ -1,4 +1,4 @@
-# GoLang Backend Project
+# GoLang Backend Boilerplate
 
 This is a backend project built with Go, providing a robust and scalable server implementation.
 
